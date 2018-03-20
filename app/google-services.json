@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "84695828716",
+    "firebase_url": "https://projectconnect-d066b.firebaseio.com",
+    "project_id": "projectconnect-d066b",
+    "storage_bucket": "projectconnect-d066b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84695828716:android:65798de777a36870",
+        "android_client_info": {
+          "package_name": "com.example.ht2s.projectconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84695828716-kompv67tvuvcb0ick2tfhg29q2dhgm3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF-gnyXRRqvztlyie_MKBT_XjlrNQsFSs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
