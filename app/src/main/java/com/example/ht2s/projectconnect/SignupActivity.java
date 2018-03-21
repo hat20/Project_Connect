@@ -40,6 +40,12 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        if(firebaseAuth.getCurrentUser() != null){
+            //home activity here
+            finish();
+            startActivity(new Intent(SignupActivity.this,HomeActivity.class));
+        }
+
         progressDialog = new ProgressDialog(this);
         signup = (Button)findViewById(R.id.btn1);
         email = (EditText)findViewById(R.id.email);
@@ -71,13 +77,13 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
                         if(task.isSuccessful()){
                             Toast.makeText(SignupActivity.this,"Signed Up Successfully",Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
+                            finish();
                             startActivity(new Intent(SignupActivity.this,HomeActivity.class));
                         } else{
                             Toast.makeText(SignupActivity.this,"Sign Up Failed ",Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
                         }
 
                     }
@@ -93,6 +99,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         if(v == signin){
+            finish();
             startActivity(new Intent(SignupActivity.this,login.class));
         }
 

@@ -33,6 +33,12 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        if(firebaseAuth.getCurrentUser() != null){
+            //home activity here
+            finish();
+            startActivity(new Intent(login.this,HomeActivity.class));
+        }
+
         progressDialog = new ProgressDialog(this);
         login = (Button)findViewById(R.id.LoginBtn);
         email = (EditText)findViewById(R.id.email);
@@ -44,15 +50,47 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    private void loginUser()
+    {
+        String Email = email.getText().toString().trim();
+        String Password = password.getText().toString().trim();
+
+        if(TextUtils.isEmpty(Email)){
+            //TextUtils used to check whether Email was entered by user or not
+            Toast.makeText(this,"Please enter email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(Password)){
+            Toast.makeText(this,"Please enter password", Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+        progressDialog.setMessage("SIGNING IN..");
+        progressDialog.show();
+
+        firebaseAuth.signInWithEmailAndPassword(Email,Password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+                        if(task.isSuccessful()){
+                            finish();
+                            startActivity(new Intent(login.this,HomeActivity.class));
+                        }
+
+                    }
+                });
+    }
 
     @Override
     public void onClick(View v) {
 
         if(v == login){
-           // loginUser();
+           loginUser();
         }
 
         if(v == signup){
+            finish();
             startActivity(new Intent(login.this,SignupActivity.class));
         }
 
