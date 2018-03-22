@@ -18,18 +18,25 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener{
 
 
     private EditText email;
+    private EditText fname;
+    private EditText lname;
     private EditText password;
     private TextView signin;
     private Button signup;
     RadioGroup radioGroup;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+
+    private DatabaseReference databaseReference;
 
     String gen;
 
@@ -46,8 +53,12 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(SignupActivity.this,HomeActivity.class));
         }
 
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
         progressDialog = new ProgressDialog(this);
         signup = (Button)findViewById(R.id.btn1);
+        fname = (EditText)findViewById(R.id.firstname);
+        lname = (EditText)findViewById(R.id.lastname);
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
         signin = (TextView)findViewById(R.id.tvSignIn);
@@ -71,25 +82,34 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             return;
 
         }
+        String Fname = fname.getText().toString().trim();
+        String Lname = lname.getText().toString().trim();
+
+        final UserInformation userInformation = new UserInformation(Fname,Lname,gen);
+
+
         progressDialog.setMessage("SIGNING UP..");
         progressDialog.show();
-        firebaseAuth.createUserWithEmailAndPassword(Email,Password)
+        Task<AuthResult> authResultTask = firebaseAuth.createUserWithEmailAndPassword(Email, Password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
-                        if(task.isSuccessful()){
-                            Toast.makeText(SignupActivity.this,"Signed Up Successfully",Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(SignupActivity.this, "Signed Up Successfully", Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            databaseReference.child(user.getUid()).setValue(userInformation);
                             finish();
-                            startActivity(new Intent(SignupActivity.this,HomeActivity.class));
-                        } else{
-                            Toast.makeText(SignupActivity.this,"Sign Up Failed ",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignupActivity.this, HomeActivity.class));
+                        } else {
+                            Toast.makeText(SignupActivity.this, "Sign Up Failed ", Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
 
     }
+
 
     @Override
     public void onClick(View v) {
