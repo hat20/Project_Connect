@@ -68,6 +68,24 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         signin.setOnClickListener(this);
     }
 
+    private void sendEmailVerification(){
+        FirebaseUser user2 = firebaseAuth.getInstance().getCurrentUser();
+        if(user2 != null)
+        {
+            user2.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful())
+                    {
+                        Toast.makeText(SignupActivity.this, "Check your email for verification", Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut();
+                    }
+                }
+            });
+        }
+
+    }
+
     private void signupUser(){
         String Email = email.getText().toString().trim();
         String Password = password.getText().toString().trim();
@@ -97,10 +115,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             Toast.makeText(SignupActivity.this, "Signed Up Successfully", Toast.LENGTH_SHORT).show();
+                            sendEmailVerification();
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             databaseReference.child(user.getUid()).setValue(userInformation);
                             finish();
-                            startActivity(new Intent(SignupActivity.this, HomeActivity.class));
+                            startActivity(new Intent(SignupActivity.this, DummyActivity.class));
                         } else {
                             Toast.makeText(SignupActivity.this, "Sign Up Failed ", Toast.LENGTH_SHORT).show();
                         }

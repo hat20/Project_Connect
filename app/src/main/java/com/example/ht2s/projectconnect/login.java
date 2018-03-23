@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class login extends AppCompatActivity implements View.OnClickListener {
 
@@ -75,11 +76,27 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                         progressDialog.dismiss();
                         if(task.isSuccessful()){
                             finish();
-                            startActivity(new Intent(login.this,HomeActivity.class));
+                            checkIfEmailVerified();
+                        }
+                        else{
+                            progressDialog.dismiss();
+                            Toast.makeText(login.this, "Incorrect Credentials", Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
+    }
+
+    private void checkIfEmailVerified(){
+        FirebaseUser user3 = firebaseAuth.getInstance().getCurrentUser();
+        boolean emailVerified = user3.isEmailVerified();
+        if(emailVerified)
+        {
+            startActivity(new Intent(login.this,HomeActivity.class));
+        }
+        else{
+            startActivity(new Intent(login.this,DummyActivity.class));
+        }
     }
 
     @Override

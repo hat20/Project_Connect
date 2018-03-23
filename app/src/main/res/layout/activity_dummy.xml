@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ht2s.projectconnect.HomeActivity">
+    tools:context="com.example.ht2s.projectconnect.DummyActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -23,6 +23,17 @@
             android:text="WELCOME TO YOUR HOME PAGE"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <TextView
+            android:id="@+id/hometv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="75dp"
+            android:text="For complete access, please verify your email!"
+            android:textSize="16dp"
+            android:textColor="@android:color/holo_red_dark" />
+
+
         <Button
             android:id="@+id/SignOutBtn"
             android:layout_width="wrap_content"
@@ -33,5 +44,6 @@
 
 
     </LinearLayout>
+
 
 </RelativeLayout>
