@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         finish();
-                        startActivity(new Intent(MainActivity.this,SignupActivity.class));
+                        startActivity(new Intent(MainActivity.this,login.class));
                     }
                 });
 

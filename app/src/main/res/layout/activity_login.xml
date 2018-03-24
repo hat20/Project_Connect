@@ -120,19 +120,36 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="90dp"
                 android:background="@color/colorPrimaryDark"
                 android:text="SIGN IN"
                 android:textColor="@color/colorWhite" />
 
             <TextView
+            android:id="@+id/tvSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="Don't have account? Sign Up here!"
+            android:textAlignment="center" />
+
+            <TextView
                 android:id="@+id/tvSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="Don't have account? Sign Up here!"
+                android:text="-------------------OR-------------------"
                 android:textAlignment="center" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/googleBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="100dp"
+                android:paddingTop="10dp">
+
+            </com.google.android.gms.common.SignInButton>
 
         </LinearLayout>
     </LinearLayout>
