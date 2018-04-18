@@ -9,12 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager mSlideViewPager;
     private LinearLayout mDotLayout;
 
+    PrefManager prefManager;
     private TextView[] mDots;
     private Button mNextBtn;
     private Button mBackBtn;
@@ -30,7 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
         mNextBtn = (Button)findViewById(R.id.nextBtn);
         mBackBtn = (Button)findViewById(R.id.prevBtn);
-
+        prefManager = new PrefManager(this);
+        if(prefManager.getSession()){
+            startActivity(new Intent(this,login.class));
+            finish();
+        }
         sliderAdapter =  new SliderAdapter(this);
         mSlideViewPager.setAdapter(sliderAdapter);
         addDotsIndicator(0);
@@ -98,8 +104,9 @@ public class MainActivity extends AppCompatActivity {
                 mNextBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        finish();
                         startActivity(new Intent(MainActivity.this,login.class));
+                        prefManager.saveSession(true);
+                        finish();
                     }
                 });
 
