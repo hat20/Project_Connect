@@ -1,5 +1,7 @@
 package com.example.ht2s.projectconnect;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,19 +12,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 //import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class FeedActivity extends AppCompatActivity {
+import org.w3c.dom.Text;
+
+public class FeedActivity extends AppCompatActivity implements View.OnClickListener{
 
     private RecyclerView mFeedList;
     private DatabaseReference mDatabase;
+    private Button homeBtn,MessBtn;
     private LinearLayout linearLayout;
+    private TextView tvproname;
+    private Context context;
+    private static int currentPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +42,38 @@ public class FeedActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.keepSynced(true);
 
+        homeBtn = (Button)findViewById(R.id.HomeAcBtn);
+        MessBtn = (Button)findViewById(R.id.MessagesBtn);
+
         mFeedList = (RecyclerView)findViewById(R.id.rcv);
         mFeedList.setHasFixedSize(true);
         mFeedList.setLayoutManager(new LinearLayoutManager(this));
+
+        homeBtn.setOnClickListener(this);
+        MessBtn.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v) {
+
+        if(v == homeBtn){
+            finish();
+            startActivity(new Intent(FeedActivity.this,HomeActivity.class));
+        }
+
+        if(v == MessBtn){
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("message/rfc822");
+            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
+            i.putExtra(Intent.EXTRA_SUBJECT, "Subject of email");
+            i.putExtra(Intent.EXTRA_TEXT   , "Body of email");
+            try {
+                startActivity(Intent.createChooser(i, "Send mail..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(FeedActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
     }
     @Override
     protected void onStart(){
@@ -43,65 +82,13 @@ public class FeedActivity extends AppCompatActivity {
         FirebaseRecyclerAdapter<Feed,FeedViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Feed, FeedViewHolder>(Feed.class,R.layout.row_feed,FeedViewHolder.class,mDatabase) {
             @Override
             protected void populateViewHolder(FeedViewHolder holder, Feed model, int position) {
+
                 holder.setFname(model.getFname());
                 holder.setPro_topic(model.getPro_topic());
                 holder.setPro_name(model.getPro_name());
                 holder.setPro_desc(model.getPro_desc());
-
             }
         };
-
-        /*FirebaseRecyclerOptions<Feed> options =
-                new FirebaseRecyclerOptions.Builder<Feed>()
-                        .setQuery(mDatabase, Feed.class)
-                        .build();*/
-
-        /*FirebaseRecyclerAdapter<Feed,FeedViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Feed, FeedViewHolder>
-                () {
-            @Override
-            protected void onBindViewHolder(@NonNull FeedViewHolder holder, int position, @NonNull Feed model) {
-
-                holder.setFname(model.getFname());
-                holder.setPro_topic(model.getPro_topic());
-                holder.setPro_name(model.getPro_name());
-                holder.setPro_desc(model.getPro_desc());
-                linearLayout = (LinearLayout)findViewById(R.id.linearlayout1);
-
-                holder.linearLayout.setVisibility(View.GONE);
-
-                //if the position is equals to the item position which is to be expanded
-                if (currentPosition == position) {
-                    //creating an animation
-                    Animation slideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down);
-
-                    //toggling visibility
-                    holder.linearLayout.setVisibility(View.VISIBLE);
-
-                    //adding sliding effect
-                    holder.linearLayout.startAnimation(slideDown);
-                }
-
-                holder.tvProName.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        //getting the position of the item to expand it
-                        currentPosition = position;
-
-                        //reloding the list
-                        notifyDataSetChanged();
-                    }
-                });
-
-            }
-
-            @Override
-            public FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                //View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_feed, parent, false);
-                //return new FeedViewHolder(v);
-                return null;
-            }
-        };*/
         mFeedList.setAdapter(firebaseRecyclerAdapter);
 
     }
@@ -109,7 +96,8 @@ public class FeedActivity extends AppCompatActivity {
     public static class FeedViewHolder extends RecyclerView.ViewHolder
     {
         View mView;
-       // public View linearLayout;
+        //public View linearLayout;
+        //public View tvproname;
 
         public FeedViewHolder(View itemView){
             super(itemView);
