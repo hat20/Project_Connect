@@ -28,8 +28,6 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth firebaseAuth;
-    private TextView UserEmail;
-    private Button BtnSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +123,12 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_messages) {
 
         } else if (id == R.id.nav_signout) {
+            firebaseAuth = FirebaseAuth.getInstance();
+            Toast.makeText(HomeActivity.this,"Signing Out..",Toast.LENGTH_SHORT).show();
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(HomeActivity.this,login.class));
+
 
         } else if (id == R.id.nav_share) {
 
