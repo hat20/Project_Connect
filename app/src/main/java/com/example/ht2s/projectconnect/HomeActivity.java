@@ -119,6 +119,8 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_profile) {
             fragment = new ProfileFragment();
         } else if (id == R.id.nav_feed) {
+            startActivity(new Intent(HomeActivity.this,FeedActivity.class));
+            finish();
 
         } else if (id == R.id.nav_messages) {
 

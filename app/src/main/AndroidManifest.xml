@@ -34,6 +34,7 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
         <activity android:name=".DummyActivity" />
+        <activity android:name=".FeedActivity"></activity>
     </application>
 
 </manifest>
