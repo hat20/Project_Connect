@@ -34,7 +34,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
     private EditText email;
     private EditText password;
     private TextView signup;
-    private Button login;
+    private Button login,reset;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth,mAuth;
     private SignInButton mGoogleBtn;
@@ -95,12 +95,14 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
         progressDialog = new ProgressDialog(this);
         login = (Button)findViewById(R.id.LoginBtn);
+        reset = (Button)findViewById(R.id.ResetBtn);
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
         signup = (TextView)findViewById(R.id.tvSignUp);
 
         login.setOnClickListener(this);
         signup.setOnClickListener(this);
+        reset.setOnClickListener(this);
 
     }
 
@@ -218,6 +220,33 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         if(v == signup){
             finish();
             startActivity(new Intent(login.this,SignupActivity.class));
+        }
+
+        if(v == reset){
+            String Email = email.getText().toString().trim();
+
+            if (TextUtils.isEmpty(Email)) {
+                Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            progressDialog.setMessage("Sending email..");
+            progressDialog.show();
+
+            firebaseAuth.sendPasswordResetEmail(Email)
+
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(login.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(login.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            progressDialog.dismiss();
+                        }
+                    });
         }
 
 

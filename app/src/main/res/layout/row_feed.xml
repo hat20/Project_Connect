@@ -71,7 +71,7 @@
 
 
                 <Button
-                    android:id="@+id/messageBtn"
+                    android:id="@+id/msgButton"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="125dp"

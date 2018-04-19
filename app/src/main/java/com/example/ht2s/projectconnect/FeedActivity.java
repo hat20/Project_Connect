@@ -24,15 +24,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
+import java.util.zip.Inflater;
+
 public class FeedActivity extends AppCompatActivity implements View.OnClickListener{
 
     private RecyclerView mFeedList;
     private DatabaseReference mDatabase;
     private Button homeBtn,MessBtn;
-    private LinearLayout linearLayout;
-    private TextView tvproname;
-    private Context context;
-    private static int currentPosition = 0;
+    private LayoutInflater inflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +44,17 @@ public class FeedActivity extends AppCompatActivity implements View.OnClickListe
         homeBtn = (Button)findViewById(R.id.HomeAcBtn);
         MessBtn = (Button)findViewById(R.id.MessagesBtn);
 
+
         mFeedList = (RecyclerView)findViewById(R.id.rcv);
         mFeedList.setHasFixedSize(true);
         mFeedList.setLayoutManager(new LinearLayoutManager(this));
 
         homeBtn.setOnClickListener(this);
         MessBtn.setOnClickListener(this);
+
     }
+
+
     @Override
     public void onClick(View v) {
 
@@ -82,6 +85,22 @@ public class FeedActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseRecyclerAdapter<Feed,FeedViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Feed, FeedViewHolder>(Feed.class,R.layout.row_feed,FeedViewHolder.class,mDatabase) {
             @Override
             protected void populateViewHolder(FeedViewHolder holder, Feed model, int position) {
+                holder.messBtn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        /// button click event
+                            Intent i = new Intent(Intent.ACTION_SEND);
+                            i.setType("message/rfc822");
+                            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
+                            i.putExtra(Intent.EXTRA_SUBJECT, "Subject of email");
+                            i.putExtra(Intent.EXTRA_TEXT   , "Body of email");
+                            try {
+                                startActivity(Intent.createChooser(i, "Send mail..."));
+                            } catch (android.content.ActivityNotFoundException ex) {
+                                Toast.makeText(FeedActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                });
 
                 holder.setFname(model.getFname());
                 holder.setPro_topic(model.getPro_topic());
@@ -96,12 +115,12 @@ public class FeedActivity extends AppCompatActivity implements View.OnClickListe
     public static class FeedViewHolder extends RecyclerView.ViewHolder
     {
         View mView;
-        //public View linearLayout;
-        //public View tvproname;
+        Button messBtn;
 
         public FeedViewHolder(View itemView){
             super(itemView);
             mView = itemView;
+            this.messBtn = (Button)mView.findViewById(R.id.msgButton);
         }
         public void setFname(String fname){
             TextView tv7 = (TextView)mView.findViewById(R.id.tv7);

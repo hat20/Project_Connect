@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_background"
-    android:orientation="vertical"
-    tools:context="com.example.ht2s.projectconnect.login">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="PROJECT CONNECT"
+            android:text="PROFILE"
             android:textAlignment="center"
             android:textColor="@color/colorTransparentWhite"
             android:textSize="24sp"
@@ -29,8 +27,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="Make the most out of Open Source"
+            android:layout_marginTop="5dp"
+            android:text="Update your profile!"
             android:textAlignment="center"
             android:textColor="@color/colorTransparentWhite"
             android:textSize="18sp"
@@ -59,7 +57,7 @@
 
 
             <TextView
-                android:id="@+id/tv1"
+                android:id="@+id/frag1tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
@@ -70,7 +68,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/firstname"
+                android:id="@+id/profirstname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
@@ -88,7 +86,7 @@
 
 
             <TextView
-                android:id="@+id/tv2"
+                android:id="@+id/frag1tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
@@ -100,7 +98,7 @@
 
 
             <EditText
-                android:id="@+id/lastname"
+                android:id="@+id/prolastname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
@@ -118,7 +116,7 @@
 
 
             <TextView
-                android:id="@+id/tvgen"
+                android:id="@+id/frag1tvgen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
@@ -128,30 +126,55 @@
                 android:textStyle="bold" />
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/proradioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/male"
+                    android:id="@+id/promale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:onClick="checkButton"
                     android:text="Male" />
 
                 <RadioButton
-                    android:id="@+id/female"
+                    android:id="@+id/profemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:onClick="checkButton"
                     android:text="Female" />
             </RadioGroup>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:orientation="vertical"
+            android:weightSum="30">
+
+            <TextView
+                android:id="@+id/frag1tv5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:text="Project Name : "
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/projectname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="20" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -161,24 +184,23 @@
             android:weightSum="30">
 
             <TextView
-                android:id="@+id/tv3"
+                android:id="@+id/frag1tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:paddingLeft="15dp"
                 android:paddingTop="15dp"
-                android:text="Email : "
+                android:text="Project Topic : "
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/protopic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_weight="20"
-                android:inputType="textEmailAddress" />
+                android:layout_weight="20" />
         </LinearLayout>
 
         <LinearLayout
@@ -189,68 +211,56 @@
             android:weightSum="30">
 
             <TextView
-                android:id="@+id/tv4"
+                android:id="@+id/frag1tv4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:paddingLeft="15dp"
                 android:paddingTop="15dp"
-                android:text="Password : "
+                android:text="Project Description : "
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_weight="20"
-                android:inputType="textPassword" />
+                android:inputType="textLongMessage" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="15"
-            android:orientation="vertical">
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn1"
-                android:layout_width="150dp"
+                android:id="@+id/updateBtn"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="100dp"
-                android:layout_marginStart="100dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="40dp"
                 android:background="@color/colorPrimaryDark"
-                android:text="SIGN UP"
+                android:text="Update"
                 android:textColor="@color/colorWhite" />
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TableRow>
-                    <TextView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:layout_marginLeft="50dp"
-                        android:paddingTop="10dp"
-                        android:text="Already a member?"
-                        android:textAlignment="center" />
 
-                    <TextView
-                        android:id="@+id/tvSignIn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="5dp"
-                        android:textColor="#0000ee"
-                        android:paddingTop="10dp"
-                        android:text="Login here!"
-                        android:textAlignment="center" />
-
-                </TableRow>
-            </TableLayout>
+            <Button
+                android:id="@+id/Btnbck"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="Back"
+                android:textColor="@color/colorWhite" />
 
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

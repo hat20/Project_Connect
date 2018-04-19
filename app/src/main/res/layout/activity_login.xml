@@ -112,26 +112,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:layout_weight="15"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/LoginBtn"
-                android:layout_width="150dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="90dp"
+                android:layout_marginStart="20dp"
                 android:background="@color/colorPrimaryDark"
                 android:text="SIGN IN"
                 android:textColor="@color/colorWhite" />
 
-            <TextView
-            android:id="@+id/tvSignUp"
+            <Button
+                android:id="@+id/ResetBtn"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="15dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="RESET PASSWORD"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:text="Don't have account? Sign Up here!"
-            android:textAlignment="center" />
+            android:layout_marginTop="15dp"
+            android:layout_weight="15"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TableRow>
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:layout_marginLeft="50dp"
+                        android:paddingTop="10dp"
+                        android:text="Already a member?"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/tvSignUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:textColor="#0000ee"
+                        android:paddingTop="10dp"
+                        android:text="SignUp here!" />
+
+                </TableRow>
+            </TableLayout>
 
             <TextView
                 android:id="@+id/tvSignUp"

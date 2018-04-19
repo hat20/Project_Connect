@@ -1,6 +1,8 @@
 package com.example.ht2s.projectconnect;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,11 +34,21 @@ public class MainActivity extends AppCompatActivity {
 
         mNextBtn = (Button)findViewById(R.id.nextBtn);
         mBackBtn = (Button)findViewById(R.id.prevBtn);
-        prefManager = new PrefManager(this);
+     /*   prefManager = new PrefManager(this);
         if(prefManager.getSession()){
             startActivity(new Intent(this,login.class));
             finish();
+
         }
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+            edit.commit();
+        }*/
+        
         sliderAdapter =  new SliderAdapter(this);
         mSlideViewPager.setAdapter(sliderAdapter);
         addDotsIndicator(0);
@@ -105,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         startActivity(new Intent(MainActivity.this,login.class));
-                        prefManager.saveSession(true);
+                        //prefManager.saveSession(true);
                         finish();
                     }
                 });

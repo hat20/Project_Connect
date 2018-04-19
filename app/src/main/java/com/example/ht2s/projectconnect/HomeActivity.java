@@ -117,12 +117,25 @@ public class HomeActivity extends AppCompatActivity
         Fragment fragment = null;
 
         if (id == R.id.nav_profile) {
-            fragment = new ProfileFragment();
+            //fragment = new ProfileFragment();
+            startActivity(new Intent(HomeActivity.this,ProfileActivity.class));
+            finish();
+
         } else if (id == R.id.nav_feed) {
             startActivity(new Intent(HomeActivity.this,FeedActivity.class));
             finish();
 
         } else if (id == R.id.nav_messages) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("message/rfc822");
+            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
+            i.putExtra(Intent.EXTRA_SUBJECT, "");
+            i.putExtra(Intent.EXTRA_TEXT   , "");
+            try {
+                startActivity(Intent.createChooser(i, "Send mail..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(getApplicationContext(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
 
         } else if (id == R.id.nav_signout) {
             firebaseAuth = FirebaseAuth.getInstance();
@@ -138,13 +151,13 @@ public class HomeActivity extends AppCompatActivity
 
         }
 
-        if(fragment != null){
+        /*if(fragment != null){
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
 
             ft.replace(R.id.screen_area,fragment);
             ft.commit();
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

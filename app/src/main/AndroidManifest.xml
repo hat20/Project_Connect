@@ -35,7 +35,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".DummyActivity" />
         <activity android:name=".FeedActivity" />
-        <activity android:name=".MessActivity"></activity>
+        <activity android:name=".MessActivity" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>
