@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
             edit.commit();
         }*/
-        
+
         sliderAdapter =  new SliderAdapter(this);
         mSlideViewPager.setAdapter(sliderAdapter);
         addDotsIndicator(0);

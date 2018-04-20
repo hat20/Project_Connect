@@ -2,6 +2,7 @@ package com.example.ht2s.projectconnect;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,8 +65,9 @@ public class FeedActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(v == MessBtn){
-            Intent i = new Intent(Intent.ACTION_SEND);
+            Intent i = new Intent(Intent.ACTION_SENDTO);
             i.setType("message/rfc822");
+            i.setData(Uri.parse("mailto:"));
             i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
             i.putExtra(Intent.EXTRA_SUBJECT, "Subject of email");
             i.putExtra(Intent.EXTRA_TEXT   , "Body of email");
@@ -89,17 +91,18 @@ public class FeedActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onClick(View v) {
                         /// button click event
-                            Intent i = new Intent(Intent.ACTION_SEND);
-                            i.setType("message/rfc822");
-                            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
-                            i.putExtra(Intent.EXTRA_SUBJECT, "Subject of email");
-                            i.putExtra(Intent.EXTRA_TEXT   , "Body of email");
-                            try {
-                                startActivity(Intent.createChooser(i, "Send mail..."));
-                            } catch (android.content.ActivityNotFoundException ex) {
-                                Toast.makeText(FeedActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-                            }
+                        Intent i = new Intent(Intent.ACTION_SENDTO);
+                        i.setType("message/rfc822");
+                        i.setData(Uri.parse("mailto:"));
+                        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
+                        i.putExtra(Intent.EXTRA_SUBJECT, "Subject of email");
+                        i.putExtra(Intent.EXTRA_TEXT   , "Body of email");
+                        try {
+                            startActivity(Intent.createChooser(i, "Send mail..."));
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(FeedActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                         }
+                    }
                 });
 
                 holder.setFname(model.getFname());

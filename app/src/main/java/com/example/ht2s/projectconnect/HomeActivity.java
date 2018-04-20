@@ -1,5 +1,6 @@
 package com.example.ht2s.projectconnect;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -126,8 +127,9 @@ public class HomeActivity extends AppCompatActivity
             finish();
 
         } else if (id == R.id.nav_messages) {
-            Intent i = new Intent(Intent.ACTION_SEND);
+            Intent i = new Intent(Intent.ACTION_SENDTO);
             i.setType("message/rfc822");
+            i.setData(Uri.parse("mailto:"));
             i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
             i.putExtra(Intent.EXTRA_SUBJECT, "");
             i.putExtra(Intent.EXTRA_TEXT   , "");
